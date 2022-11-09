@@ -98,12 +98,8 @@ async def on_message(message: discord.Message):
     global feat_trans
     if feat_trans is None or sus_meter is None:
         return
-    guild = message.guild
     channel = message.channel
-    permissions = channel.permissions_for(guild.self_role)
-    if channel.name == 'test':
-        return
-    if not permissions.view_channel:
+    permissions = channel.permissions_for(message.guild)
         return
     content = message.content
 
