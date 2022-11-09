@@ -100,12 +100,10 @@ async def on_message(message: discord.Message):
         return
     channel = message.channel
     permissions = channel.permissions_for(message.guild)
+    if channel.name == 'test' or (not permissions.view_channel):
         return
     content = message.content
-
-    feature = feat_trans.transform([content])
-    sus = sus_meter.predict(feature)[0]
-    if sus == 1:
+    if sus_meter.predict(feat_trans.transform([content]))[0] == 1:
         print(f'found sus message: {content}')
         await message.add_reaction(client.get_emoji(SUS_EMOJI_ID))
     
